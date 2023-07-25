@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const useSearchMovies = (apiKey, searchText, type) => {
   const [page, setPage] = useState(1);
-  const [content, setContent] = useState([]);
-  const [numOfPages, setNumOfPages] = useState(0);
-
+  const [contentSearch, setContentSearch] = useState([]);
+  const movieIds = useRef(new Set())
   const fetchSearchResults = async () => {
     try {
       const { data } = await axios.get(
@@ -17,28 +16,24 @@ const useSearchMovies = (apiKey, searchText, type) => {
       return null;
     }
   };
-
+  // Clear the search results when the search text or type changes
+    useEffect(() => {
+      setContentSearch([]);
+    }, [searchText, type]);
   useEffect(() => {
     const loadSearchResults = async () => {
       const data = await fetchSearchResults();
       if (data) {
-        setContent((prevContent) => [...prevContent, ...data.results]);
-        setNumOfPages(data.total_pages);
-      } else {
-        setContent([]);
-        setNumOfPages(0);
+        const uniqueMovies = data.results.filter(movie => !movieIds.current.has(movie.id));
+        uniqueMovies.forEach(movie => movieIds.current.add(movie.id));
+        setContentSearch([...uniqueMovies]);
       }
     };
-
     loadSearchResults();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText, type, page]);
 
-  const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
 
-  return { content, numOfPages, handleLoadMore };
+  return { contentSearch };
 };
 
 export default useSearchMovies;

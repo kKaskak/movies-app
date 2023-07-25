@@ -1,6 +1,7 @@
 import React from 'react';
-import { useFavorite } from './hooks/useFavorite'; 
+import { useFavorite } from '../../Routes/Favorites/hooks/useFavorite'; 
 import { MoviePreviewContainer, Poster } from './MoviePreviewStyles';
+import { Link } from 'react-router-dom'; // import Link from react-router-dom
 
 const MoviePreview = ({
   id,
@@ -13,20 +14,26 @@ const MoviePreview = ({
   const { isFavorite, toggleFavorite } = useFavorite(movie);
 
   return (
-    <MoviePreviewContainer id={id}>
-      <Poster
-        className="poster"
-        src={poster ? `https://image.tmdb.org/t/p/w300${poster}` : ''}
-        alt={title}></Poster>
-      <b className="title">{title}</b>
-      <p className="subTitle">
-        {media_type === "tv" ? "TV Series" : "Movie"}
-      </p>
-      <p className="subTitle">{date}</p>
-      <button onClick={toggleFavorite}>
-        {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      </button>
-    </MoviePreviewContainer>
+      <MoviePreviewContainer id={id}>
+         <Link to={`/${id}`}>
+            <Poster
+              className="poster"
+              src={poster ? `https://image.tmdb.org/t/p/w300${poster}` : ''}
+              alt={title}>
+            </Poster>
+          </Link>
+        <b className="title">{title}</b>
+        <p className="subTitle">
+          {media_type === "tv" ? "TV Series" : "Movie"}
+        </p>
+        <p className="subTitle">{date}</p>
+        <button onClick={event => {
+          event.preventDefault(); // prevent navigation
+          toggleFavorite();
+        }}>
+          {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        </button>
+      </MoviePreviewContainer>
   );
 }
 

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { MoviePreview, Navbar } from '../../components/export';
 import SearchBar from './SearchBar/SearchBar';
-import { useFetchMovies, useScroll } from './hooks/export';
+import { useFetchMovies, useScroll, useSearchMovies } from './hooks/export';
 import { MoviesList, ErrorModal } from './MoviesComponentsStyles';
 
 const MoviesPage = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const { content, searchResults, error } = useFetchMovies(apiKey, page, searchQuery);
+  const { content, error } = useFetchMovies(apiKey, page);
+  const type = 'movie';
+  const { contentSearch } = useSearchMovies(apiKey, searchQuery, type);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -21,12 +23,12 @@ const MoviesPage = () => {
   };
 
   const handleSearch = (searchText) => {
-    setSearchQuery(searchText);
+    setSearchQuery(searchText.toLowerCase());
     setPage(1); // Reset page to 1 when a new search is made
   };
 
   // Use searchResults if available, otherwise use the trending content
-  const movieData = searchQuery ? searchResults : content;
+  const movieData = searchQuery ? contentSearch : content;
 
   return (
     <div>
