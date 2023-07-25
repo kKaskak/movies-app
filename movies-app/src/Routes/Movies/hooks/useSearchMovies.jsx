@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const useSearchMovies = (apiKey, searchText, type) => {
+const useSearchMovies = (apiKey, searchText) => {
   const [page, setPage] = useState(1);
   const [contentSearch, setContentSearch] = useState([]);
   const movieIds = useRef(new Set())
   const fetchSearchResults = async () => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/search/${type ? 'tv' : 'movie'}?api_key=${apiKey}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       );
       return data;
     } catch (error) {
@@ -19,7 +19,8 @@ const useSearchMovies = (apiKey, searchText, type) => {
   // Clear the search results when the search text or type changes
     useEffect(() => {
       setContentSearch([]);
-    }, [searchText, type]);
+    }, [searchText]);
+    
   useEffect(() => {
     const loadSearchResults = async () => {
       const data = await fetchSearchResults();
@@ -30,7 +31,7 @@ const useSearchMovies = (apiKey, searchText, type) => {
       }
     };
     loadSearchResults();
-  }, [searchText, type, page]);
+  }, [searchText, page]);
 
 
   return { contentSearch };

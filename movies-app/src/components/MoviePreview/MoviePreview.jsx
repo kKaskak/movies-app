@@ -2,6 +2,7 @@ import React from 'react';
 import { useFavorite } from '../../Routes/Favorites/hooks/useFavorite'; 
 import { MoviePreviewContainer, Poster } from './MoviePreviewStyles';
 import { Link } from 'react-router-dom'; // import Link from react-router-dom
+import { noImage } from '../../assets/export';
 
 const MoviePreview = ({
   id,
@@ -18,7 +19,7 @@ const MoviePreview = ({
          <Link to={`/${id}`}>
             <Poster
               className="poster"
-              src={poster ? `https://image.tmdb.org/t/p/w300${poster}` : ''}
+              src={poster ? `https://image.tmdb.org/t/p/w300${poster}` : noImage }
               alt={title}>
             </Poster>
           </Link>

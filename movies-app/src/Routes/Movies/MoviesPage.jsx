@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { MoviePreview, Navbar } from '../../components/export';
 import SearchBar from './SearchBar/SearchBar';
-import { useFetchMovies, useScroll, useSearchMovies } from './hooks/export';
+import { useFetchMovies, useScroll, useSearchMovies, useGenres, useFetchGenre } from './hooks/export';
 import { MoviesList, ErrorModal } from './MoviesComponentsStyles';
-
 const MoviesPage = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  
   const { content, error } = useFetchMovies(apiKey, page);
-  const type = 'movie';
-  const { contentSearch } = useSearchMovies(apiKey, searchQuery, type);
-
+  const { contentSearch } = useSearchMovies(apiKey, searchQuery);
+  const genres = useGenres(process.env.REACT_APP_API_KEY);
+  const movies = useFetchGenre(process.env.REACT_APP_API_KEY, selectedGenre);
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -24,11 +25,15 @@ const MoviesPage = () => {
 
   const handleSearch = (searchText) => {
     setSearchQuery(searchText.toLowerCase());
-    setPage(1); // Reset page to 1 when a new search is made
+    setPage(1); 
+  };
+  const handleClick = (genreId) => {
+    setSelectedGenre(genreId);
   };
 
-  // Use searchResults if available, otherwise use the trending content
-  const movieData = searchQuery ? contentSearch : content;
+  // Use the selected genre if selected otherwise use contentsearch otherwise use trending
+  const movieData = selectedGenre ? movies : searchQuery ? contentSearch : content;
+
 
   return (
     <div>
@@ -36,6 +41,12 @@ const MoviesPage = () => {
       <SearchBar onSearch={handleSearch} />
       <h1>Movies App</h1>
       <h2>Fetching data from an API, sorting favorites, and more</h2>
+      <button onClick={() => setSelectedGenre(null)}>All</button>
+      {genres.map((genre) => (
+          <button key={genre.id} onClick={() => handleClick(genre.id)}>
+            {genre.name}
+          </button>
+      ))}
       <MoviesList>
         {movieData &&
           movieData.map((c) => (

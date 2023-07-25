@@ -1,4 +1,3 @@
-// useScroll.js
 import { useEffect } from 'react';
 
 const useScroll = (callback) => {
