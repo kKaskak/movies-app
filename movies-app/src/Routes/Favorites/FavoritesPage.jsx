@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar, MoviePreview } from '../../components/export';
-import { FavoritesContainer } from './FavoritesPageStyles';
+import { FavoritesContainer, Heading, NoFavoritesMessage } from './FavoritesPageStyles';
 import { FavoritesContext } from '../Favorites/FavoritesProvider';
 
 const FavoritesPage = () => {
@@ -9,7 +9,7 @@ const FavoritesPage = () => {
   return (
     <>
       <Navbar />
-      <h1>Favorites</h1>
+      <Heading>Your Favorites List </Heading>
       <FavoritesContainer>
        {favorites.length > 0 ? favorites.map((movie) => (
           <MoviePreview
@@ -21,7 +21,7 @@ const FavoritesPage = () => {
             media_type={movie.media_type}
           />
         )) : 
-        (<h1>No favorites yet! Add some</h1>)
+        (<NoFavoritesMessage>No favorites yet! Add some to your list.</NoFavoritesMessage>)
         }
       </FavoritesContainer>
     </>

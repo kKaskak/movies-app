@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { MoviePreview, Navbar } from '../../components/export';
 import SearchBar from './SearchBar/SearchBar';
 import { useFetchMovies, useScroll, useSearchMovies, useGenres } from './hooks/export';
-import { MoviesList, ErrorModal, Heading, Subheading, Category, CategoryContainer } from './MoviesComponentsStyles';
-import { motion } from 'framer-motion';
+import { MoviesList, ErrorModal,Subheading, Category, CategoryContainer, ShowMoreButton, ShowMoreContainer } from './MoviesComponentsStyles';
+import {  FaRegHandPointDown } from 'react-icons/fa'
+import { AiOutlineArrowDown, AiOutlineArrowUp  } from 'react-icons/ai'
+import { AnimatePresence, motion } from 'framer-motion';
 import { hover } from './MoviesPageAnim'
 const MoviesPage = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState(null);
-  
-  
+
+  const [page, setPage] = useState(1); // pagination
+  const [searchQuery, setSearchQuery] = useState(''); 
+  const [selectedGenre, setSelectedGenre] = useState(null); 
+  const [displayMoreCategories, setDisplayMoreCategories] = useState(false)
+
   const genres = useGenres(process.env.REACT_APP_API_KEY);
   const { content, error } = useFetchMovies(apiKey, page);
   const { contentSearch } = useSearchMovies(apiKey, searchQuery);
@@ -34,6 +37,7 @@ const MoviesPage = () => {
     setSelectedGenre(genreId);
   };
 
+
   // Use the selected genre if selected otherwise use contentsearch otherwise use trending
   const movieData = selectedGenre 
     ? content.filter(movie => movie.genre_ids.includes(selectedGenre))
@@ -44,17 +48,35 @@ const MoviesPage = () => {
   return (
     <div>
       <Navbar />
-      <Heading>Movies App</Heading>
+      <Subheading>Search for your favorite movies <FaRegHandPointDown size={25} color='#0d090a'/></Subheading>
       <SearchBar onSearch={handleSearch} />
-      <Subheading>Search for your favorite movies! Use favorites to save them.</Subheading>
-      <CategoryContainer>
-      <Category onClick={() => setSelectedGenre(null)}>All</Category>
-      {genres.map((genre) => (
-          <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
-            {genre.name}
-          </Category>
-      ))}
-      </CategoryContainer>
+      <Subheading>Categories <FaRegHandPointDown size={25} color='#0d090a'/></Subheading>
+      <AnimatePresence>
+        {!displayMoreCategories && (
+            <CategoryContainer is_active={displayMoreCategories ? 'true' : undefined}>
+              <Category onClick={() => setSelectedGenre(null)}>All</Category>
+              {genres.map((genre) => (
+                  <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
+                    {genre.name}
+                  </Category>
+              ))}
+         </CategoryContainer>
+        )}
+        {displayMoreCategories && (
+              <CategoryContainer is_active={displayMoreCategories ? 'true' : undefined}>
+              <Category onClick={() => setSelectedGenre(null)}>All</Category>
+              {genres.map((genre) => (
+                  <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
+                    {genre.name}
+                  </Category>
+              ))}
+            </CategoryContainer>
+        )}
+
+      </AnimatePresence>
+      <ShowMoreContainer>
+        <ShowMoreButton is_active={displayMoreCategories ? 'true' : undefined } onClick={() => setDisplayMoreCategories(displayMoreCategories ? false : true)}>More {!displayMoreCategories ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />} </ShowMoreButton>
+      </ShowMoreContainer>
       <MoviesList>
         {movieData &&
           movieData.map((c) => (

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 const MoviesList = styled.div`
   display: flex;
@@ -14,7 +14,6 @@ const SearchBar = styled.input`
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 1rem;
   width: 100%;
   max-width: 400px;
 `;
@@ -41,41 +40,79 @@ const ErrorModal = styled.div`
 export const Heading = styled(motion.h1)`
   font-size: 4rem;
   text-align: center;
-  background: #f6f8f9;
-  background: radial-gradient(
-    circle farthest-corner at center center,
-    #f6f8f9 0%,
-    #c7cccf 30%,
-    #bfc5c9 60%,
-    #f5f7f9 100%
-  );
+  background: #51bacf;
+  background: linear-gradient(to right, #51bacf 0%, #0d090a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
 `;
 export const Subheading = styled(motion.h2)`
   font-size: 2rem;
   text-align: center;
-  color: #090000;
+  background: #51bacf;
+  background: linear-gradient(to right, #51bacf 0%, #0d090a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
 `;
 
 export const Category = styled(motion.button)`
   padding: 0.7rem 1rem;
   background: #fff;
-  border-radius: 1rem;
-  border: 2px solid #090000;
-  color: #090000;
-  margin: 1rem;
+  border-radius: 3rem;
+  border: 2px solid #0d090a;
+  color: #0d090a;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
   transition: 0.4s cubic-bezier(0.37, 0, 0.63, 1);
   &:hover {
     color: #fff;
-    background: #090000;
-    border: 2px solid #fff;
+    background: #0d090a;
   }
 `;
-
-export const CategoryContainer = styled.div`
+// Define the styled component
+export const CategoryContainer = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto 1rem;
+  height: 3rem;
+  overflow: hidden;
+  trasform: transition: 1s ease-in-out;
+  ${(props) =>
+    props.is_active &&
+    css`
+      height: auto;
+    `}
+`;
+
+export const ShowMoreButton = styled.button`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  border-radius: 3rem;
+  border: 2px solid #0d090a;
+  color: #0d090a;
+  margin: 0 auto 3rem;
+  transition: 0.4s cubic-bezier(0.37, 0, 0.63, 1);
+  &:hover {
+    color: #fff;
+    background: #0d090a;
+  }
+  ${(props) =>
+    props.is_active &&
+    css`
+      background: #0d090a;
+      color: #fff;
+    `}
+`;
+
+export const ShowMoreContainer = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
