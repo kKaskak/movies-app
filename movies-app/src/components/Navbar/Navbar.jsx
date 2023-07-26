@@ -1,21 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { styled } from 'styled-components'
-const NavbarContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0 2rem;
-  height: 7vh;
-  margin: 0 auto;
-  padding: 0 4rem;
-`
+import { LinkText, NavbarContainer } from './NavbarStyles'
+import { motion } from 'framer-motion'
+import { hover } from './NavbarAnim'
+
 const Navbar = () => {
   return (
     <NavbarContainer>
-       <Link to='/'>Home</Link>
-       <Link to='/favorites'>Favorites</Link>
+       <Link to='/'><LinkText whileHover={hover} as={motion.h4}>Home</LinkText></Link>
+       <Link to='/favorites'><LinkText whileHover={hover}  as={motion.h4}>Favorites</LinkText></Link>
     </NavbarContainer>
   )
 }

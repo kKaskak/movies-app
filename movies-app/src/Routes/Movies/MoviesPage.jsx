@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { MoviePreview, Navbar } from '../../components/export';
 import SearchBar from './SearchBar/SearchBar';
-import { useFetchMovies, useScroll, useSearchMovies, useGenres, useFetchGenre } from './hooks/export';
-import { MoviesList, ErrorModal } from './MoviesComponentsStyles';
+import { useFetchMovies, useScroll, useSearchMovies, useGenres } from './hooks/export';
+import { MoviesList, ErrorModal, Heading, Subheading, Category, CategoryContainer } from './MoviesComponentsStyles';
+import { motion } from 'framer-motion';
+import { hover } from './MoviesPageAnim'
 const MoviesPage = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState(null);
   
+  
+  const genres = useGenres(process.env.REACT_APP_API_KEY);
   const { content, error } = useFetchMovies(apiKey, page);
   const { contentSearch } = useSearchMovies(apiKey, searchQuery);
-  const genres = useGenres(process.env.REACT_APP_API_KEY);
-  const movies = useFetchGenre(process.env.REACT_APP_API_KEY, selectedGenre);
+
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -32,21 +35,26 @@ const MoviesPage = () => {
   };
 
   // Use the selected genre if selected otherwise use contentsearch otherwise use trending
-  const movieData = selectedGenre ? movies : searchQuery ? contentSearch : content;
-
+  const movieData = selectedGenre 
+    ? content.filter(movie => movie.genre_ids.includes(selectedGenre))
+    : searchQuery 
+        ? contentSearch 
+        : content;
 
   return (
     <div>
       <Navbar />
+      <Heading>Movies App</Heading>
       <SearchBar onSearch={handleSearch} />
-      <h1>Movies App</h1>
-      <h2>Fetching data from an API, sorting favorites, and more</h2>
-      <button onClick={() => setSelectedGenre(null)}>All</button>
+      <Subheading>Search for your favorite movies! Use favorites to save them.</Subheading>
+      <CategoryContainer>
+      <Category onClick={() => setSelectedGenre(null)}>All</Category>
       {genres.map((genre) => (
-          <button key={genre.id} onClick={() => handleClick(genre.id)}>
+          <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
             {genre.name}
-          </button>
+          </Category>
       ))}
+      </CategoryContainer>
       <MoviesList>
         {movieData &&
           movieData.map((c) => (
