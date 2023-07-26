@@ -10,7 +10,6 @@ import MovieNotAvaible from './MovieNotAvaible';
 const MoviePage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [isNotAvaible, setIsNotAvaible] = useState(false) // if movie is not avaiable
   const [error, setError] = useState(null);
   useEffect(() => {
     const fetchMovie = async () => {

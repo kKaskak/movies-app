@@ -1,10 +1,6 @@
 import { MoviesPage } from "./Routes/export";
 function App() {
-  return (
-    <>
-      <MoviesPage />
-    </>
-  );
+  return <MoviesPage />;
 }
 
 export default App;

@@ -6,7 +6,6 @@ import { MoviesList, ErrorModal,Subheading, Category, CategoryContainer, ShowMor
 import {  FaRegHandPointDown } from 'react-icons/fa'
 import { AiOutlineArrowDown, AiOutlineArrowUp  } from 'react-icons/ai'
 import { AnimatePresence, motion } from 'framer-motion';
-import { hover } from './MoviesPageAnim'
 const MoviesPage = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -56,7 +55,7 @@ const MoviesPage = () => {
             <CategoryContainer is_active={displayMoreCategories ? 'true' : undefined}>
               <Category onClick={() => setSelectedGenre(null)}>All</Category>
               {genres.map((genre) => (
-                  <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
+                  <Category as={motion.button} key={genre.id} onClick={() => handleClick(genre.id)}>
                     {genre.name}
                   </Category>
               ))}
@@ -66,7 +65,7 @@ const MoviesPage = () => {
               <CategoryContainer is_active={displayMoreCategories ? 'true' : undefined}>
               <Category onClick={() => setSelectedGenre(null)}>All</Category>
               {genres.map((genre) => (
-                  <Category as={motion.button} whileHover={hover} key={genre.id} onClick={() => handleClick(genre.id)}>
+                  <Category as={motion.button} key={genre.id} onClick={() => handleClick(genre.id)}>
                     {genre.name}
                   </Category>
               ))}

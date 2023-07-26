@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FavoritesContext } from '../../../Routes/Favorites/FavoritesProvider';
+import { FavoritesContext } from '../FavoritesProvider';
 
 export const useFavorite = (movie) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);

@@ -15,11 +15,10 @@ const GlobalStyle = createGlobalStyle`
 h2, h3, h4, h5, h6, p {
     margin: 0;
     padding: 0;
-    // color: #ffffff;
   }
   a {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
+    color: inherit; 
+    text-decoration: inherit; 
   }
 
   button {
