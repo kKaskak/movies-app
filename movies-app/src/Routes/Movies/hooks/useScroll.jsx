@@ -4,7 +4,7 @@ const useScroll = (callback) => {
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
+      if (scrollTop + clientHeight >= scrollHeight - 100) {
         callback();
       }
     };

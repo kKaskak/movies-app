@@ -2,24 +2,12 @@ import { motion } from "framer-motion";
 import { styled } from "styled-components";
 
 const MoviesList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 1rem 4rem;
   margin: 0 auto;
-  @media screen and (max-width: 1050px) {
-    grid-template-columns: repeat(4, 1fr);
-    padding: 1rem 2rem;
-  }
-  @media screen and (max-width: 820px) {
-    grid-template-columns: repeat(3, 1fr);
-    padding: 1.5rem;
-  }
-  @media screen and (max-width: 620px) {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 1rem;
-  }
+  gap: 1.5rem;
 `;
 const SearchBar = styled.input`
   /* Add your styles for the search bar here */
@@ -77,7 +65,7 @@ export const Category = styled(motion.button)`
   border: 2px solid #090000;
   color: #090000;
   margin: 1rem;
-  transition: 0.4s cubic-bezier(0.7, 0, 0.84, 0);
+  transition: 0.4s cubic-bezier(0.37, 0, 0.63, 1);
   &:hover {
     color: #fff;
     background: #090000;
