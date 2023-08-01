@@ -1,4 +1,5 @@
-import { MoviesPage } from "./Routes/export";
+import React from "react";
+import { MoviesPage } from "./Routes";
 function App() {
   return <MoviesPage />;
 }

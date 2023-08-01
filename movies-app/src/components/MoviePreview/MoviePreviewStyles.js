@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { motion } from "framer-motion";
-const MoviePreviewContainer = styled.div`
+export const MoviePreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ const MoviePreviewContainer = styled.div`
   max-width: 300px;
   padding-bottom: 1rem;
 `;
-const Poster = styled(motion.div)`
+export const Poster = styled(motion.div)`
   width: 300px;
   height: 400px;
   border-radius: 1rem;
@@ -36,4 +36,3 @@ export const MovieTitle = styled.b`
   font-size: 16px;
   max-width: 90%;
 `;
-export { Poster, MoviePreviewContainer };

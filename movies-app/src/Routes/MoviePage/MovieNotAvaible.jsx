@@ -5,11 +5,11 @@ import { MovieNotAvaiableContainer, ButtonHomepage, Heading } from './MoviePageS
 const MovieNotAvaible = () => {
   return (
     <MovieNotAvaiableContainer>
-        <Heading>Movie Not Avaible</Heading>
+        <Heading>Movie Not Avaiable</Heading>
 
         <Link to={'/'}><ButtonHomepage>Homepage</ButtonHomepage></Link>
     </MovieNotAvaiableContainer>
   )
-}
+};
 
-export default MovieNotAvaible
+export default MovieNotAvaible;

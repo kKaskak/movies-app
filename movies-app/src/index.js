@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./ErrorPage";
 import App from "./App";
-import { FavoritesPage, MoviePage } from "./Routes/export";
+import { FavoritesPage, MoviePage } from "./Routes";
 import { FavoritesProvider } from "./Routes/Favorites/FavoritesProvider";
 import GlobalStyles from "./GlobalStyle";
 const router = createBrowserRouter([

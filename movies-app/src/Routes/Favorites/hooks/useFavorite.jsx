@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { FavoritesContext } from '../FavoritesProvider';
 
-export const useFavorite = (movie) => {
+const useFavorite = (movie) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
   const isFavorite = favorites.some(favorite => favorite.id === movie.id);
 
@@ -18,3 +18,5 @@ export const useFavorite = (movie) => {
 
   return { isFavorite, toggleFavorite };
 };
+
+export default useFavorite;

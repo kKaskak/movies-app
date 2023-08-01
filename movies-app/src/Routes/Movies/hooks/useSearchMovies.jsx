@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const useSearchMovies = (apiKey, searchText) => {
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [contentSearch, setContentSearch] = useState([]);
   const movieIds = useRef(new Set())
   const fetchSearchResults = async () => {

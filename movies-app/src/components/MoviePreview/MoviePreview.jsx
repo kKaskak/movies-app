@@ -1,24 +1,26 @@
 import React from 'react';
-import { useFavorite } from '../../Routes/Favorites/hooks/useFavorite'; 
-import { FavoriteHeart, MoviePreviewContainer, Poster, Date , MovieTitle } from './MoviePreviewStyles';
-import { Link } from 'react-router-dom'; // import Link from react-router-dom
-import { noImage } from '../../assets/export';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion'
+import { useFavorite } from '../../Routes/Favorites/hooks'; 
+import { noImage } from '../../assets';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md'
-import { hover, hoverSmall} from './MoviePreviewAnim'
+import { hover, hoverSmall } from './MoviePreviewAnim'
+import { FavoriteHeart, MoviePreviewContainer, Poster, Date, MovieTitle } from './MoviePreviewStyles';
+
+
 const MoviePreview = ({
   id,
   poster,
   title,
   date,
-  media_type,
 }) => {
   const movie = { id, poster, title, date };
   const { isFavorite, toggleFavorite } = useFavorite(movie);
 
   return (
       <MoviePreviewContainer id={id}>
-         <Link to={`/${id}`}>
+         <Link to={`/${id}`} target="_blank" rel="noopener noreferrer">
             <Poster
             as={motion.img}
             whileHover={hoverSmall}
@@ -30,7 +32,7 @@ const MoviePreview = ({
         <MovieTitle className="title">{title}</MovieTitle>
         <Date className="subTitle">{date}</Date>
         <FavoriteHeart whileHover={hover} as={motion.button} onClick={event => {
-          event.preventDefault(); // prevent navigation
+          event.preventDefault(); 
           toggleFavorite();
         }}>
           {isFavorite ? 
@@ -39,6 +41,13 @@ const MoviePreview = ({
       </MoviePreviewContainer>
   );
 }
+
+MoviePreview.propTypes = {
+  id: PropTypes.number.isRequired,
+  poster: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string,
+};
 
 export default MoviePreview;
 

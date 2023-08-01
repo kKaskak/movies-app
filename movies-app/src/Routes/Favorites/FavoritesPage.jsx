@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Navbar, MoviePreview } from '../../components/export';
+import { Navbar, MoviePreview } from '../../components';
 import { FavoritesContainer, Heading, NoFavoritesMessage } from './FavoritesPageStyles';
 import { FavoritesContext } from '../Favorites/FavoritesProvider';
 
@@ -9,7 +9,7 @@ const FavoritesPage = () => {
   return (
     <>
       <Navbar />
-      <Heading>Your Favorites List </Heading>
+      <Heading>Your Favorites List</Heading>
       <FavoritesContainer>
        {favorites.length > 0 ? favorites.map((movie) => (
           <MoviePreview

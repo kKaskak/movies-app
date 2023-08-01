@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { styled, css } from "styled-components";
+import { styled } from "styled-components";
 
-const MoviesList = styled.div`
+export const MoviesList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,7 +9,7 @@ const MoviesList = styled.div`
   margin: 0 auto;
   gap: 1.5rem;
 `;
-const SearchBar = styled.input`
+export const SearchBar = styled.input`
   /* Add your styles for the search bar here */
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -17,7 +17,7 @@ const SearchBar = styled.input`
   width: 100%;
   max-width: 400px;
 `;
-const ErrorModal = styled.div`
+export const ErrorModal = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   position: fixed;
@@ -55,65 +55,3 @@ export const Subheading = styled(motion.h2)`
   -webkit-text-fill-color: transparent;
   margin-bottom: 2rem;
 `;
-
-export const Category = styled(motion.button)`
-  padding: 0.7rem 1rem;
-  background: #fff;
-  border-radius: 3rem;
-  border: 2px solid #0d090a;
-  color: #0d090a;
-  margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
-  transition: 0.4s cubic-bezier(0.37, 0, 0.63, 1);
-  &:hover {
-    color: #fff;
-    background: #0d090a;
-  }
-`;
-// Define the styled component
-export const CategoryContainer = styled(motion.div)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  max-width: 80%;
-  margin: 0 auto 1rem;
-  height: 3rem;
-  overflow: hidden;
-  trasform: transition: 1s ease-in-out;
-  ${(props) =>
-    props.is_active &&
-    css`
-      height: auto;
-    `}
-`;
-
-export const ShowMoreButton = styled.button`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0.7rem 1rem;
-  background: #fff;
-  border-radius: 3rem;
-  border: 2px solid #0d090a;
-  color: #0d090a;
-  margin: 0 auto 3rem;
-  transition: 0.4s cubic-bezier(0.37, 0, 0.63, 1);
-  &:hover {
-    color: #fff;
-    background: #0d090a;
-  }
-  ${(props) =>
-    props.is_active &&
-    css`
-      background: #0d090a;
-      color: #fff;
-    `}
-`;
-
-export const ShowMoreContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-export { MoviesList, SearchBar, ErrorModal };

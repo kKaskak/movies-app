@@ -1,5 +1,10 @@
+import React from "react";
 import { Link, useRouteError } from "react-router-dom";
-import { ButtonHomepage, Heading, MovieNotAvaiableContainer } from "./Routes/MoviePage/MoviePageStyles";
+import {
+  ButtonHomepage,
+  Heading,
+  MovieNotAvaiableContainer,
+} from "./Routes/MoviePage/MoviePageStyles";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -9,7 +14,9 @@ export default function ErrorPage() {
     <MovieNotAvaiableContainer>
       <Heading>Ups! I guess we have an error :\</Heading>
 
-      <Link to={'/'}><ButtonHomepage>Homepage</ButtonHomepage></Link>
+      <Link to={"/"}>
+        <ButtonHomepage>Homepage</ButtonHomepage>
+      </Link>
     </MovieNotAvaiableContainer>
   );
 }
