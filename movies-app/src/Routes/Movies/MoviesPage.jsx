@@ -1,33 +1,18 @@
 import React, { useState } from "react";
-import { MoviePreview, Navbar } from "../../components";
+import { MoviePreview, PageLayout } from "../../components";
 import { SearchBar } from "./SearchBar";
-import { useFetchMovies, useScroll, useSearchMovies, useGenres } from "./hooks";
+import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
 import { apiKey } from "../../variables";
 import { FaRegHandPointDown } from "react-icons/fa";
-import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  MoviesList,
-  // ErrorModal,
-  Subheading,
-} from "./MoviesComponentsStyles";
-import {
-  Category,
-  CategoryContainer,
-  ShowMoreButton,
-  ShowMoreContainer,
-} from "./Categories/CategoriesStyles";
-
+import { MoviesList, Subheading } from "./MoviesComponentsStyles";
 import MovieNotAvaible from "../MoviePage/MovieNotAvaible";
+import Categories from "./Categories/Categories";
 
 const MoviesPage = () => {
   const [page, setPage] = useState(1); // pagination
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(null);
-  const [displayMoreCategories, setDisplayMoreCategories] = useState(false);
-
-  const genres = useGenres(apiKey);
-  const { content, error } = useFetchMovies(apiKey, page);
+  const { content, error } = useFetchMovies(apiKey, page, selectedGenre);
   const { contentSearch } = useSearchMovies(apiKey, searchQuery);
 
   const handleLoadMore = () => {
@@ -36,18 +21,15 @@ const MoviesPage = () => {
 
   useScroll(handleLoadMore);
 
-  // const handleRefresh = () => {
-  //   window.location.reload();
-  // };
-
   const handleSearch = (searchText) => {
     setSearchQuery(searchText.toLowerCase());
     setPage(1);
   };
-  const handleClick = (genreId) => {
-    setSelectedGenre(genreId);
-  };
 
+  const handleGenreChange = (genreId) => {
+    setSelectedGenre(genreId);
+    setPage(1);
+  };
   // Use the selected genre if selected otherwise use contentsearch otherwise use trending
   const movieData = selectedGenre
     ? content.filter((movie) => movie.genre_ids.includes(selectedGenre))
@@ -57,7 +39,7 @@ const MoviesPage = () => {
 
   return (
     <>
-      <Navbar />
+      <PageLayout />
       <Subheading>
         Search for your favorite movies{" "}
         <FaRegHandPointDown size={25} color="#0d090a" />
@@ -68,55 +50,10 @@ const MoviesPage = () => {
       </Subheading>
       {!error ? (
         <div>
-          <AnimatePresence>
-            {!displayMoreCategories && (
-              <CategoryContainer
-                isActive={displayMoreCategories ? "true" : undefined}
-              >
-                <Category onClick={() => setSelectedGenre(null)}>All</Category>
-                {genres.map((genre) => (
-                  <Category
-                    as={motion.button}
-                    key={genre.id}
-                    onClick={() => handleClick(genre.id)}
-                  >
-                    {genre.name}
-                  </Category>
-                ))}
-              </CategoryContainer>
-            )}
-            {displayMoreCategories && (
-              <CategoryContainer
-                isActive={displayMoreCategories ? "true" : undefined}
-              >
-                <Category onClick={() => setSelectedGenre(null)}>All</Category>
-                {genres.map((genre) => (
-                  <Category
-                    as={motion.button}
-                    key={genre.id}
-                    onClick={() => handleClick(genre.id)}
-                  >
-                    {genre.name}
-                  </Category>
-                ))}
-              </CategoryContainer>
-            )}
-          </AnimatePresence>
-          <ShowMoreContainer>
-            <ShowMoreButton
-              is_active={displayMoreCategories ? "true" : undefined}
-              onClick={() =>
-                setDisplayMoreCategories(displayMoreCategories ? false : true)
-              }
-            >
-              {displayMoreCategories ? "Less" : "More"}
-              {!displayMoreCategories ? (
-                <AiOutlineArrowDown />
-              ) : (
-                <AiOutlineArrowUp />
-              )}{" "}
-            </ShowMoreButton>
-          </ShowMoreContainer>
+          <Categories
+            selectedGenre={selectedGenre}
+            genreChange={handleGenreChange}
+          />
           <MoviesList>
             {movieData &&
               movieData.map((c) => (

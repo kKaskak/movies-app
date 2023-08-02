@@ -1,9 +1,11 @@
-import React from 'react'
-import { CustomLoader } from './LoadingStyles'
+import React from "react";
+import { CustomLoader, CustomLoaderContainer } from "./LoadingStyles";
 const Loading = () => {
   return (
-    <CustomLoader></CustomLoader>
-  )
-}
+    <CustomLoaderContainer>
+       <CustomLoader></CustomLoader>
+    </CustomLoaderContainer>
+  );
+};
 
-export default Loading
+export default Loading;

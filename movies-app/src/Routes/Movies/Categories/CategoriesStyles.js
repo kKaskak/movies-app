@@ -14,6 +14,12 @@ export const Category = styled(motion.button)`
     color: #fff;
     background: #0d090a;
   }
+  ${(props) =>
+    props.isActive &&
+    css`
+      color: #fff;
+      background: #0d090a;
+    `}
 `;
 // Define the styled component
 export const CategoryContainer = styled(motion.div)`

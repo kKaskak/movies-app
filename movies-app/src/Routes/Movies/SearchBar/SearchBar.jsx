@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types'
-import { SearchBarContainer, SearchInput } from './SearchBarStyles';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { SearchBarContainer, SearchInput } from "./SearchBarStyles";
 
 const SearchBar = ({ onSearch }) => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -24,6 +24,5 @@ const SearchBar = ({ onSearch }) => {
 
 SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
-}
+};
 export default SearchBar;
-

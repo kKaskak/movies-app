@@ -1,15 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { MovieNotAvaiableContainer, ButtonHomepage, Heading } from './MoviePageStyles'
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  MovieNotAvaiableContainer,
+  ButtonHomepage,
+  Heading,
+} from "./MoviePageStyles";
 
 const MovieNotAvaible = () => {
   return (
     <MovieNotAvaiableContainer>
-        <Heading>Movie Not Avaiable</Heading>
+      <Heading>Movie Not Avaiable</Heading>
 
-        <Link to={'/'}><ButtonHomepage>Homepage</ButtonHomepage></Link>
+      <Link to={"/"}>
+        <ButtonHomepage>Homepage</ButtonHomepage>
+      </Link>
     </MovieNotAvaiableContainer>
-  )
+  );
 };
 
 export default MovieNotAvaible;

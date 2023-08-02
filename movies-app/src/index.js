@@ -30,5 +30,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <GlobalStyles />
       <RouterProvider router={router} />
     </FavoritesProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useGenres = (apiKey) => {
   const [genres, setGenres] = useState([]);
@@ -7,7 +7,7 @@ const useGenres = (apiKey) => {
   useEffect(() => {
     const fetchGenres = async () => {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
       );
       setGenres(response.data.genres);
     };
@@ -18,4 +18,4 @@ const useGenres = (apiKey) => {
   return genres;
 };
 
-export default useGenres
+export default useGenres;

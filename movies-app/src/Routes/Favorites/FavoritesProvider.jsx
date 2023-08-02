@@ -1,16 +1,16 @@
-import React, { useState, createContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, createContext, useEffect } from "react";
+import PropTypes from "prop-types";
 
 export const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(() => {
-    const savedFavorites = localStorage.getItem('favorites');
+    const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   return (
@@ -22,4 +22,3 @@ export const FavoritesProvider = ({ children }) => {
 FavoritesProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
