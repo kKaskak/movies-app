@@ -39,7 +39,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
                 as={motion.button}
                 key={genre.id}
                 onClick={() => handleClick(genre.id)}
-                active={genre.id === selectedGenre}
+                active={genre.id === selectedGenre ? "true" : undefined}
               >
                 {genre.name}
               </Category>
@@ -56,7 +56,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
                 as={motion.button}
                 key={genre.id}
                 onClick={() => handleClick(genre.id)}
-                active={genre.id === selectedGenre}
+                active={genre.id === selectedGenre ? "true" : undefined}
               >
                 {genre.name}
               </Category>

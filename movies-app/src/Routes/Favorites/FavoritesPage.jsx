@@ -23,7 +23,6 @@ const FavoritesPage = () => {
               poster={movie.poster}
               title={movie.title}
               date={movie.date}
-              media_type={movie.media_type}
             />
           ))
         ) : (

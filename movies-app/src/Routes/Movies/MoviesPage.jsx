@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { MoviePreview, PageLayout } from "../../components";
-import { SearchBar } from "./SearchBar";
-import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
+import {
+  // Loading,
+  MoviePreview,
+  PageLayout,
+  ScrollUpButton,
+} from "../../components";
 import { apiKey } from "../../variables";
-import { FaRegHandPointDown } from "react-icons/fa";
-import { MoviesList, Subheading } from "./MoviesComponentsStyles";
-import Categories from "./Categories/Categories";
+import { Categories } from "./Categories";
+import { SearchBar } from "./SearchBar";
 import { TrendingError } from "./TrendingError";
+
+import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
+import { FaRegHandPointDown } from "react-icons/fa";
+
+import { MoviesList, Subheading } from "./MoviesComponentsStyles";
 
 const MoviesPage = () => {
   const [page, setPage] = useState(1); // pagination
@@ -40,6 +47,7 @@ const MoviesPage = () => {
   return (
     <>
       <PageLayout />
+      <ScrollUpButton />
       <Subheading>
         Search for your favorite movies{" "}
         <FaRegHandPointDown size={25} color="#0d090a" />
@@ -63,11 +71,10 @@ const MoviesPage = () => {
                   poster={c.poster_path}
                   title={c.title || c.name}
                   date={c.first_air_date || c.release_date}
-                  media_type={c.media_type}
-                  vote_average={c.vote_average}
                 />
               ))}
           </MoviesList>
+          {/* {!searchQuery && <Loading />} */}
         </div>
       ) : (
         <TrendingError errorMessage={error} />

@@ -7,8 +7,6 @@ export const MoviePageContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 4rem 4rem;
-
-  /* Responsive styles for smaller screens */
   @media screen and (max-width: 900px) {
     flex-direction: column;
     padding: 1rem;

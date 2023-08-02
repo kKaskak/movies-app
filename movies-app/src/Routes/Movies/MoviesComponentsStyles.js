@@ -10,7 +10,6 @@ export const MoviesList = styled.div`
   gap: 1.5rem;
 `;
 export const SearchBar = styled.input`
-  /* Add your styles for the search bar here */
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -33,8 +32,6 @@ export const ErrorModal = styled.div`
   justify-content: center;
   font-size: 1.2rem;
   max-width: 80%;
-
-  /* Add any additional styles you want for the ErrorModal */
 `;
 
 export const Heading = styled(motion.h1)`
