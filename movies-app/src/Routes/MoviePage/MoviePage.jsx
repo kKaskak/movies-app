@@ -28,14 +28,18 @@ const MoviePage = () => {
           setLoading(false);
         }, 300);
       } catch (err) {
-        setError("Movie not Avaiable!");
+        if (err.response && err.response.status === 401) {
+          setError(err.message);
+        } else {
+          setError(err.message);
+        }
       }
     };
 
     fetchMovie();
   }, [movieId]);
 
-  if (error) return <MovieNotAvaible />;
+  if (error) return <MovieNotAvaible errorMessage={error} />;
 
   return (
     <>

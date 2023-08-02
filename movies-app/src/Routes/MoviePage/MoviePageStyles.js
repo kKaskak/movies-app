@@ -44,6 +44,9 @@ export const ButtonHomepage = styled.button`
 export const Heading = styled.h1`
   margin-bottom: 3rem;
 `;
+export const SubHeading = styled.h4`
+  margin-bottom: 3rem;
+`;
 
 export const MainImage = styled.img`
   height: 450px;

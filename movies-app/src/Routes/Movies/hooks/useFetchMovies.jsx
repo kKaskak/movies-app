@@ -22,7 +22,7 @@ const useFetchMovies = (apiKey, page, genreId = null) => {
 
         setContent((prevContent) => [...prevContent, ...uniqueMovies]);
       } catch (error) {
-        setError("Error fetching movies. Please try again later.");
+        setError(error.message);
       }
     };
     fetchMovies();

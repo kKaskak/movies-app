@@ -31,7 +31,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
       <AnimatePresence>
         {!displayMoreCategories && (
           <CategoryContainer
-            isActive={displayMoreCategories ? "true" : undefined}
+            active={displayMoreCategories ? "true" : undefined}
           >
             <Category onClick={handleAllReset}>All</Category>
             {genres.map((genre) => (
@@ -39,7 +39,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
                 as={motion.button}
                 key={genre.id}
                 onClick={() => handleClick(genre.id)}
-                isActive={genre.id === selectedGenre}
+                active={genre.id === selectedGenre}
               >
                 {genre.name}
               </Category>
@@ -48,7 +48,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
         )}
         {displayMoreCategories && (
           <CategoryContainer
-            isActive={displayMoreCategories ? "true" : undefined}
+            active={displayMoreCategories ? "true" : undefined}
           >
             <Category onClick={handleAllReset}>All</Category>
             {genres.map((genre) => (
@@ -56,7 +56,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
                 as={motion.button}
                 key={genre.id}
                 onClick={() => handleClick(genre.id)}
-                isActive={genre.id === selectedGenre}
+                active={genre.id === selectedGenre}
               >
                 {genre.name}
               </Category>
@@ -66,7 +66,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
       </AnimatePresence>
       <ShowMoreContainer>
         <ShowMoreButton
-          isActive={displayMoreCategories ? "true" : undefined}
+          active={displayMoreCategories ? "true" : undefined}
           onClick={toggleSeeMore}
         >
           {seeMore ? "Less" : "More"}

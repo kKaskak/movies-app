@@ -5,8 +5,8 @@ import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
 import { apiKey } from "../../variables";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { MoviesList, Subheading } from "./MoviesComponentsStyles";
-import MovieNotAvaible from "../MoviePage/MovieNotAvaible";
 import Categories from "./Categories/Categories";
+import { TrendingError } from "./TrendingError";
 
 const MoviesPage = () => {
   const [page, setPage] = useState(1); // pagination
@@ -70,7 +70,7 @@ const MoviesPage = () => {
           </MoviesList>
         </div>
       ) : (
-        <MovieNotAvaible />
+        <TrendingError errorMessage={error} />
       )}
     </>
   );

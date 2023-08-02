@@ -15,7 +15,7 @@ export const Category = styled(motion.button)`
     background: #0d090a;
   }
   ${(props) =>
-    props.isActive &&
+    props.active &&
     css`
       color: #fff;
       background: #0d090a;
@@ -33,7 +33,7 @@ export const CategoryContainer = styled(motion.div)`
   overflow: hidden;
   trasform: transition: 1s ease-in-out;
   ${(props) =>
-    props.isActive &&
+    props.active &&
     css`
       height: auto;
     `}
@@ -55,7 +55,7 @@ export const ShowMoreButton = styled.button`
     background: #0d090a;
   }
   ${(props) =>
-    props.isActive &&
+    props.active &&
     css`
       background: #0d090a;
       color: #fff;
