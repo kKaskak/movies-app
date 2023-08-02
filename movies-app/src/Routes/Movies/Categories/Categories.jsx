@@ -17,6 +17,14 @@ const Categories = ({ genreChange, selectedGenre }) => {
   const handleClick = (genreId) => {
     genreChange(genreId);
   };
+  const handleAllReset = () => {
+    genreChange(null);
+  };
+  const [seeMore, setSeeMore] = useState(false);
+  const toggleSeeMore = () => {
+    setSeeMore((prev) => !prev);
+    setDisplayMoreCategories((prev) => !prev);
+  };
 
   return (
     <>
@@ -25,7 +33,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
           <CategoryContainer
             isActive={displayMoreCategories ? "true" : undefined}
           >
-            <Category onClick={() => genreChange(null)}>All</Category>
+            <Category onClick={handleAllReset}>All</Category>
             {genres.map((genre) => (
               <Category
                 as={motion.button}
@@ -42,7 +50,7 @@ const Categories = ({ genreChange, selectedGenre }) => {
           <CategoryContainer
             isActive={displayMoreCategories ? "true" : undefined}
           >
-            <Category onClick={() => genreChange(null)}>All</Category>
+            <Category onClick={handleAllReset}>All</Category>
             {genres.map((genre) => (
               <Category
                 as={motion.button}
@@ -59,16 +67,10 @@ const Categories = ({ genreChange, selectedGenre }) => {
       <ShowMoreContainer>
         <ShowMoreButton
           isActive={displayMoreCategories ? "true" : undefined}
-          onClick={() =>
-            setDisplayMoreCategories(displayMoreCategories ? false : true)
-          }
+          onClick={toggleSeeMore}
         >
-          {displayMoreCategories ? "Less" : "More"}
-          {!displayMoreCategories ? (
-            <AiOutlineArrowDown />
-          ) : (
-            <AiOutlineArrowUp />
-          )}{" "}
+          {seeMore ? "Less" : "More"}
+          {!seeMore ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />}{" "}
         </ShowMoreButton>
       </ShowMoreContainer>
     </>

@@ -7,6 +7,7 @@ const SearchBar = ({ onSearch }) => {
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
+    // if (e.target.value.length >= 3) {
     onSearch(e.target.value); // directly call onSearch when the input changes
   };
 
