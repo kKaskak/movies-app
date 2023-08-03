@@ -1,5 +1,7 @@
 import { useContext } from "react";
+import axios from "axios";
 import { FavoritesContext } from "../FavoritesProvider";
+import { apiKey } from "../../../variables";
 
 const useFavorite = (movie) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
@@ -13,8 +15,19 @@ const useFavorite = (movie) => {
       );
       setFavorites(newFavorites);
     } else {
-      // Add to favorites
-      setFavorites((prevFavorites) => [...prevFavorites, movie]);
+      // Fetch full movie data and add to favorites
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}&language=en-US`,
+        )
+        .then((response) => {
+          const fullMovieData = response.data;
+          setFavorites((prevFavorites) => [...prevFavorites, fullMovieData]);
+          console.log(favorites);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 

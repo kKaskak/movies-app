@@ -20,9 +20,9 @@ const FavoritesPage = () => {
             <MoviePreview
               key={movie.id}
               id={movie.id}
-              poster={movie.poster}
-              title={movie.title}
-              date={movie.date}
+              poster={movie.poster_path}
+              title={movie.title || movie.name}
+              date={movie.first_air_date || movie.release_date}
             />
           ))
         ) : (

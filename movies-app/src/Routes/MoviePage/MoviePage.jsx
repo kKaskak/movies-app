@@ -33,18 +33,15 @@ const MoviePage = () => {
           JSON.stringify(favoriteMovie) !== JSON.stringify(data)
         ) {
           setMovieInfoIsUpdated(
-            "This movie has been updated since you favorited it.",
+            "This movie info has been updated since you favorited it.",
           );
-          console.log(favoriteMovie);
-          console.log(data);
         } else if (
           favoriteMovie &&
           JSON.stringify(favoriteMovie) == JSON.stringify(data)
         ) {
           setMovieInfoIsUpdated(
-            "This movie has been not updated since you favorited it.",
+            "This movie info has been not updated since you favorited it.",
           );
-          console.log(favoriteMovie);
         } else {
           setMovieInfoIsUpdated("");
         }
