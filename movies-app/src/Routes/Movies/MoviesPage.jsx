@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
+import { apiKey } from "../../variables";
 import {
   Loading,
   MoviePreview,
   PageLayout,
   ScrollUpButton,
 } from "../../components";
-import { apiKey } from "../../variables";
 import { Categories } from "./Categories";
 import { SearchBar } from "./SearchBar";
 import { TrendingError } from "./TrendingError";
-import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { MoviesList, Subheading } from "./MoviesComponentsStyles";
 
@@ -22,7 +22,7 @@ const MoviesPage = () => {
     page,
     selectedGenre,
   );
-  const { contentSearch } = useSearchMovies(apiKey, searchQuery);
+  const { contentSearch } = useSearchMovies(apiKey, searchQuery, page);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -34,11 +34,7 @@ const MoviesPage = () => {
     resetMovies();
     setSelectedGenre(null);
     setPage(1);
-    if (searchText.length >= 3) {
-      setSearchQuery(searchText);
-    } else {
-      setSearchQuery("");
-    }
+    searchText.length > 0 ? setSearchQuery(searchText) : setSearchQuery("");
   };
 
   const handleGenreChange = (genreId) => {
@@ -65,7 +61,8 @@ const MoviesPage = () => {
       </Subheading>
       <SearchBar onSearch={handleSearch} />
       <Subheading>
-        Categories <FaRegHandPointDown size={25} color="#0d090a" />
+        Browse Trending By Categories{" "}
+        <FaRegHandPointDown size={25} color="#0d090a" />
       </Subheading>
       {!error ? (
         <div>
@@ -86,7 +83,14 @@ const MoviesPage = () => {
               ))}
           </MoviesList>
           {!searchQuery && <Loading />}
-          {searchQuery && !contentSearch && <p>No movies found</p>}
+          {searchQuery.length > 0 && searchQuery.length < 3 && (
+            <Subheading>
+              Type at least 3 letters to show search results
+            </Subheading>
+          )}
+          {contentSearch.length == 0 && searchQuery.length >= 3 && (
+            <Subheading>No movies found</Subheading>
+          )}
         </div>
       ) : (
         <TrendingError errorMessage={error} />

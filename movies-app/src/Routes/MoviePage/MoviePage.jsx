@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { PageLayout, Loading, MoviePreview } from "../../components";
-import { MoviePageContainer, MovieContent } from "./MoviePageStyles";
 import { useParams } from "react-router-dom";
-import MovieNotAvaible from "./MovieNotAvaible";
 import { apiKey } from "../../variables";
+import { PageLayout, Loading, MoviePreview } from "../../components";
+import { FavoritesContext } from "../Favorites/FavoritesProvider";
+import MovieNotAvaible from "./MovieNotAvaible";
+import { MoviePageContainer, MovieContent } from "./MoviePageStyles";
 
 const MoviePage = () => {
   const { movieId } = useParams();
+  const { favorites } = useContext(FavoritesContext);
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [movieInfoIsUpdated, setMovieInfoIsUpdated] = useState("");
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -18,6 +21,34 @@ const MoviePage = () => {
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
         );
         setMovie(data);
+
+        // Find the movie in favorites
+        const favoriteMovie = favorites.find(
+          (favMovie) => favMovie.id === data.id,
+        );
+
+        // Compare the movie with the favorite version, if it exists
+        if (
+          favoriteMovie &&
+          JSON.stringify(favoriteMovie) !== JSON.stringify(data)
+        ) {
+          setMovieInfoIsUpdated(
+            "This movie has been updated since you favorited it.",
+          );
+          console.log(favoriteMovie);
+          console.log(data);
+        } else if (
+          favoriteMovie &&
+          JSON.stringify(favoriteMovie) == JSON.stringify(data)
+        ) {
+          setMovieInfoIsUpdated(
+            "This movie has been not updated since you favorited it.",
+          );
+          console.log(favoriteMovie);
+        } else {
+          setMovieInfoIsUpdated("");
+        }
+
         setTimeout(() => {
           setLoading(false);
         }, 300);
@@ -33,7 +64,7 @@ const MoviePage = () => {
     fetchMovie();
   }, [movieId]);
 
-  const convertMinutesToHoursAndMinutes = (minutes) => {
+  const convertMinutes = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     return `${hours} hours and ${remainingMinutes} minutes`;
@@ -54,9 +85,8 @@ const MoviePage = () => {
             date={movie.first_air_date || movie.release_date}
           />
           <MovieContent>
-            {/* <Heading>{movie.title}</Heading> */}
             <p>{movie.overview}</p>
-            <p>Runtime: {convertMinutesToHoursAndMinutes(movie.runtime)}</p>
+            <p>Runtime: {convertMinutes(movie.runtime)}</p>
             <p>Status: {movie.status}</p>
             <h4>Genres:</h4>
             <ul style={{ marginLeft: "2rem" }}>
@@ -72,6 +102,7 @@ const MoviePage = () => {
             ) : (
               <p>Page not avaiable</p>
             )}
+            <p>{movieInfoIsUpdated}</p>
           </MovieContent>
         </MoviePageContainer>
       )}
