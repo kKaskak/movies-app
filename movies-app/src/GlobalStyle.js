@@ -6,10 +6,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Manrope', sans-serif;
+
   }
   
   body {
-  
+  scroll-behavior: smooth;
   }
 
 h2, h3, h4, h5, h6, p {

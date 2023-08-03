@@ -30,7 +30,7 @@ const ScrollUpButton = () => {
       style={{ display: isVisible ? "block" : "none" }}
       onClick={handleScrollUp}
     >
-      <BsFillArrowUpSquareFill size={30} />
+      <BsFillArrowUpSquareFill size={30} color="#000000" />
     </Button>
   );
 };

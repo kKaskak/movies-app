@@ -12,7 +12,7 @@ export default function ErrorPage() {
 
   return (
     <MovieNotAvaiableContainer>
-      <Heading>Ups! I guess we have an error :\</Heading>
+      <Heading>{error}</Heading>
 
       <Link to={"/"}>
         <ButtonHomepage>Homepage</ButtonHomepage>

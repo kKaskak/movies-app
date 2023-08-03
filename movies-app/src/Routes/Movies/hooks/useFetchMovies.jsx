@@ -6,6 +6,11 @@ const useFetchMovies = (apiKey, page, genreId = null) => {
   const [error, setError] = useState(null);
   const movieIds = useRef(new Set());
 
+  const resetMovies = () => {
+    setContent([]);
+    movieIds.current.clear();
+  };
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -28,7 +33,7 @@ const useFetchMovies = (apiKey, page, genreId = null) => {
     fetchMovies();
   }, [apiKey, page, genreId]);
 
-  return { content, error };
+  return { content, error, resetMovies };
 };
 
 export default useFetchMovies;
