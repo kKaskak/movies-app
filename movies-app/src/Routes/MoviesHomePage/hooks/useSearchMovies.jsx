@@ -27,7 +27,9 @@ const useSearchMovies = (apiKey, searchText) => {
       const data = await fetchSearchResults();
       if (data) {
         const uniqueMovies = data.results;
-        setContentSearch(uniqueMovies);
+        setTimeout(() => {
+          setContentSearch(uniqueMovies);
+        }, 200);
       }
     };
     loadSearchResults();

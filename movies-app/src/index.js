@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./ErrorPage";
 import App from "./App";
 import { FavoritesPage, MoviePage } from "./Routes";
-import { FavoritesProvider } from "./Routes/Favorites/FavoritesProvider";
+import { FavoritesProvider } from "./Routes/FavoritesPage/FavoritesProvider";
 import GlobalStyles from "./GlobalStyle";
 const router = createBrowserRouter([
   {

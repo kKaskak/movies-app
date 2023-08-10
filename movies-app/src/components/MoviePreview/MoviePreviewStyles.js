@@ -20,7 +20,10 @@ export const FavoriteHeart = styled(motion.button)`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 1.5rem 1rem;
+  margin: 0.5rem;
+  padding: 1rem;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1;
 `;
 
 export const Date = styled.p`

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useFetchMovies, useScroll, useSearchMovies } from "./hooks";
 import { apiKey } from "../../variables";
-import {
-  Loading,
-  MoviePreview,
-  PageLayout,
-  ScrollUpButton,
-} from "../../components";
+import { Loading, MoviePreview, ScrollUpButton } from "../../components";
 import { Categories } from "./Categories";
 import { SearchBar } from "./SearchBar";
 import { TrendingError } from "./TrendingError";
@@ -17,6 +12,8 @@ const MoviesPage = () => {
   const [page, setPage] = useState(1); // pagination
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [nothingFound, setNothingFound] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { content, error, resetMovies } = useFetchMovies(
     apiKey,
     page,
@@ -35,6 +32,15 @@ const MoviesPage = () => {
     setSelectedGenre(null);
     setPage(1);
     searchText.length > 0 ? setSearchQuery(searchText) : setSearchQuery("");
+    setIsLoading(true); // set loading state to true at the beginning of the search
+
+    setTimeout(() => {
+      contentSearch.length === 0
+        ? setNothingFound(true)
+        : setNothingFound(false);
+
+      setIsLoading(false); // set loading state to false once the search completes
+    }, 500);
   };
 
   const handleGenreChange = (genreId) => {
@@ -53,7 +59,6 @@ const MoviesPage = () => {
 
   return (
     <>
-      <PageLayout />
       <ScrollUpButton />
       <Subheading>
         Search for your favorite movies{" "}
@@ -71,6 +76,7 @@ const MoviesPage = () => {
             genreChange={handleGenreChange}
           />
           <MoviesList>
+            {isLoading && searchQuery && searchQuery.length >= 3 && <Loading />}
             {movieData &&
               movieData.map((c) => (
                 <MoviePreview
@@ -88,7 +94,7 @@ const MoviesPage = () => {
               Type at least 3 letters to show search results
             </Subheading>
           )}
-          {contentSearch.length == 0 && searchQuery.length >= 3 && (
+          {nothingFound && searchQuery.length >= 3 && (
             <Subheading>No movies found</Subheading>
           )}
         </div>

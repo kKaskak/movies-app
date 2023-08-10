@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   }
   
-  body {
+  html {
   scroll-behavior: smooth;
   }
 

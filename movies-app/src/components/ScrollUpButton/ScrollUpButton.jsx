@@ -15,7 +15,10 @@ const ScrollUpButton = () => {
   };
 
   const handleScrollUp = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -26,10 +29,7 @@ const ScrollUpButton = () => {
   }, []);
 
   return (
-    <Button
-      style={{ display: isVisible ? "block" : "none" }}
-      onClick={handleScrollUp}
-    >
+    <Button isvisible={isVisible ? "true" : "false"} onClick={handleScrollUp}>
       <BsFillArrowUpSquareFill size={30} color="#000000" />
     </Button>
   );

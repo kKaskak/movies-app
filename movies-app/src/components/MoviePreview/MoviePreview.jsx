@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { useFavorite } from "../../Routes/Favorites/hooks";
+import { useFavorite } from "../../Routes/FavoritesPage/hooks";
 import { noImage } from "../../assets";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { hover, hoverSmall } from "./MoviePreviewAnim";

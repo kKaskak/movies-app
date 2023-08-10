@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiKey } from "../../variables";
 import { PageLayout, Loading, MoviePreview } from "../../components";
-import { FavoritesContext } from "../Favorites/FavoritesProvider";
+import { FavoritesContext } from "../FavoritesPage/FavoritesProvider";
 import MovieNotAvaible from "./MovieNotAvaible";
 import { MoviePageContainer, MovieContent } from "./MoviePageStyles";
 
@@ -70,39 +70,43 @@ const MoviePage = () => {
 
   return (
     <>
-      <PageLayout />
-      {loading ? (
-        <Loading />
-      ) : (
-        <MoviePageContainer>
-          <MoviePreview
-            id={movie.id}
-            poster={movie.poster_path}
-            title={movie.title || movie.name}
-            date={movie.first_air_date || movie.release_date}
-          />
-          <MovieContent>
-            <p>{movie.overview}</p>
-            <p>Runtime: {convertMinutes(movie.runtime)}</p>
-            <p>Status: {movie.status}</p>
-            <h4>Genres:</h4>
-            <ul style={{ marginLeft: "2rem" }}>
-              {movie.genres.map((genre, index) => (
-                <li key={index}>{genre.name}</li>
-              ))}
-            </ul>
-            <p>Movie Homepage:</p>
-            {movie.homepage ? (
-              <a style={{ textDecoration: "underline" }} href={movie.homepage}>
-                {movie.homepage}
-              </a>
-            ) : (
-              <p>Page not avaiable</p>
-            )}
-            <p>{movieInfoIsUpdated}</p>
-          </MovieContent>
-        </MoviePageContainer>
-      )}
+      <PageLayout>
+        {loading ? (
+          <Loading />
+        ) : (
+          <MoviePageContainer>
+            <MoviePreview
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.title || movie.name}
+              date={movie.first_air_date || movie.release_date}
+            />
+            <MovieContent>
+              <p>{movie.overview}</p>
+              <p>Runtime: {convertMinutes(movie.runtime)}</p>
+              <p>Status: {movie.status}</p>
+              <h4>Genres:</h4>
+              <ul style={{ marginLeft: "2rem" }}>
+                {movie.genres.map((genre, index) => (
+                  <li key={index}>{genre.name}</li>
+                ))}
+              </ul>
+              <p>Movie Homepage:</p>
+              {movie.homepage ? (
+                <a
+                  style={{ textDecoration: "underline" }}
+                  href={movie.homepage}
+                >
+                  {movie.homepage}
+                </a>
+              ) : (
+                <p>Page not avaiable</p>
+              )}
+              <p>{movieInfoIsUpdated}</p>
+            </MovieContent>
+          </MoviePageContainer>
+        )}
+      </PageLayout>
     </>
   );
 };
