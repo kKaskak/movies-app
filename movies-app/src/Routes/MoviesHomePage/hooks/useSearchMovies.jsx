@@ -5,7 +5,7 @@ const useSearchMovies = (apiKey, searchText) => {
   const [page] = useState(1);
   const [searchError, setSearchError] = useState(null);
   const [contentSearch, setContentSearch] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const fetchSearchResults = async () => {
     if (searchText.length < 3) return;
     try {
@@ -15,6 +15,7 @@ const useSearchMovies = (apiKey, searchText) => {
       return data;
     } catch (error) {
       setSearchError(error.message);
+      setLoading(false);
     }
   };
   // Clear the search results when the search text or type changes
@@ -27,15 +28,14 @@ const useSearchMovies = (apiKey, searchText) => {
       const data = await fetchSearchResults();
       if (data) {
         const uniqueMovies = data.results;
-        setTimeout(() => {
-          setContentSearch(uniqueMovies);
-        }, 200);
+        setContentSearch(uniqueMovies);
+        setLoading(false);
       }
     };
     loadSearchResults();
   }, [searchText, page]);
 
-  return { contentSearch, searchError };
+  return { contentSearch, searchError, loading };
 };
 
 export default useSearchMovies;

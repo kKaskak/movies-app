@@ -12,14 +12,13 @@ const MoviesPage = () => {
   const [page, setPage] = useState(1); // pagination
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(null);
-  const [nothingFound, setNothingFound] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { content, error, resetMovies } = useFetchMovies(
     apiKey,
     page,
     selectedGenre,
   );
-  const { contentSearch } = useSearchMovies(apiKey, searchQuery, page);
+  const { contentSearch, loading } = useSearchMovies(apiKey, searchQuery, page);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -32,15 +31,12 @@ const MoviesPage = () => {
     setSelectedGenre(null);
     setPage(1);
     searchText.length > 0 ? setSearchQuery(searchText) : setSearchQuery("");
-    setIsLoading(true); // set loading state to true at the beginning of the search
-
-    setTimeout(() => {
-      contentSearch.length === 0
-        ? setNothingFound(true)
-        : setNothingFound(false);
-
-      setIsLoading(false); // set loading state to false once the search completes
-    }, 700);
+    setIsLoading(true);
+    if (!loading) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
   };
 
   const handleGenreChange = (genreId) => {
@@ -94,7 +90,7 @@ const MoviesPage = () => {
               Type at least 3 letters to show search results
             </Subheading>
           )}
-          {nothingFound && searchQuery.length >= 3 && (
+          {contentSearch.length === 0 && searchQuery.length >= 3 && (
             <Subheading>No movies found</Subheading>
           )}
         </div>
