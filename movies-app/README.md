@@ -1,6 +1,6 @@
 # Movies app with API, favorites, categories and search functionality.
 
-# Developer in 2 days by Timothy Z.
+# Developed in 2 days by Timothy Z.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
