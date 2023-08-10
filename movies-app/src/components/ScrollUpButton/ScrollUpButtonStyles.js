@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const Button = styled.button`
+export const ButtonScrollUp = styled.button`
   position: fixed;
   bottom: 0;
   right: 0;
@@ -9,7 +9,7 @@ export const Button = styled.button`
     margin: 0.5rem;
   }
   transition: opacity 0.5s;
-  opacity: ${(props) => (props.isvisible ? 1 : 0)};
-  pointer-events: ${(props) => (props.isvisible ? "all" : "none")};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  pointer-events: ${(props) => (props.$isVisible ? "all" : "none")};
   -webkit-tap-highlight-color: transparent;
 `;

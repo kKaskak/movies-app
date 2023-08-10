@@ -40,7 +40,7 @@ const MoviesPage = () => {
         : setNothingFound(false);
 
       setIsLoading(false); // set loading state to false once the search completes
-    }, 500);
+    }, 700);
   };
 
   const handleGenreChange = (genreId) => {

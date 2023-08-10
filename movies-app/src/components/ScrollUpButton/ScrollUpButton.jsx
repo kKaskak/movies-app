@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./ScrollUpButtonStyles";
+import { ButtonScrollUp } from "./ScrollUpButtonStyles";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
 
 const ScrollUpButton = () => {
@@ -29,9 +29,9 @@ const ScrollUpButton = () => {
   }, []);
 
   return (
-    <Button isvisible={isVisible ? "true" : "false"} onClick={handleScrollUp}>
+    <ButtonScrollUp $isVisible={isVisible} onClick={handleScrollUp}>
       <BsFillArrowUpSquareFill size={30} color="#000000" />
-    </Button>
+    </ButtonScrollUp>
   );
 };
 
