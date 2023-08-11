@@ -18,7 +18,11 @@ const MoviesPage = () => {
     page,
     selectedGenre,
   );
-  const { contentSearch, loading } = useSearchMovies(apiKey, searchQuery, page);
+  const { contentSearch, loading, searchError } = useSearchMovies(
+    apiKey,
+    searchQuery,
+    page,
+  );
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -90,8 +94,13 @@ const MoviesPage = () => {
               Type at least 3 letters to show search results
             </Subheading>
           )}
-          {contentSearch.length === 0 && searchQuery.length >= 3 && (
-            <Subheading>No movies found</Subheading>
+          {contentSearch.length === 0 &&
+            searchQuery.length >= 3 &&
+            !searchError && <Subheading>No movies found</Subheading>}
+          {searchError && (
+            <Subheading>
+              Search error. Try Again later. {searchError.message}
+            </Subheading>
           )}
         </div>
       ) : (
