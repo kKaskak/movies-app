@@ -1,6 +1,9 @@
-# Movies app with API, favorites, categories and search functionality.
+## Movies app written in React 
 
-# Developed in 2 days by Timothy Z.
+1. API
+2. Favorites
+3. Categories
+4. Search functionality
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
